@@ -1,0 +1,73 @@
+import java.util.Scanner;
+
+public class DoctorPrincipiante{
+
+    
+
+    public static void main(String [] args){
+
+	Scanner scanner = new Scanner(System.in);
+
+	System.out.println("¡Bienvenido a mi consultorio");
+	System.out.println("¿Cuál es tu nombre?");
+
+	String nombre= scanner.nextLine();
+
+	System.out.println("¿Cuál es tu edad?");
+
+	int edad = scanner.nextInt();
+	
+	System.out.println("¿Cuál es tu peso?");
+
+	double peso = scanner.nextDouble();
+
+	/**• Si la edad es mayor de 75, recomendar una funeraria
+• Si la edad es menor de 18 años, recomendar un pediatra
+• Si el peso es menor de 50 kg, recomendar un puesto de tacos
+• Si el peso es mayor de 150 kg, recomendar una dieta
+	*/
+
+	String diagnostico = "Tu diagnostico es: \n ";
+
+
+
+	if(edad>75){
+
+	    System.out.println(diagnostico + "- Te recomiendo ir a una funeraria");
+	}
+
+	if(edad<18){
+	    System.out.println(diagnostico + "- Te recomiendo un pediatra");
+
+	}
+
+	if(peso<50.0){
+
+	    System.out.println(diagnostico + "- Te recomiendo un buen puesto de tacos");
+	   
+	}
+
+	if(peso>150.0){
+
+	    System.out.println(diagnostico + "- Ya vele metiendo a la dieta pa");
+	}
+
+	System.out.println(diagnostico);
+
+
+	System.out.println("Mmmm... ¿qué le sucede?");
+	
+	    String padecimiento = scanner.nextLine();
+	  
+
+	    System.out.println("Mmmm ya veo, dígame ¿Qué hizo para padecer " + padecimiento + "?");
+
+	    String causa =  scanner.nextLine();
+
+	    System.out.println("Ok le voy a recetar un PARACETAMOL");
+
+    }
+
+    
+
+}

@@ -1,0 +1,38 @@
+
+class Humano{
+
+    byte edad;
+    String nombre;
+    char sexo;
+
+
+    public Humano(byte date, String name, char gender){//Este es el constructor
+
+	edad=date;
+	nombre=name;
+	sexo= gender; 
+
+
+
+
+    }
+
+    public Chamba(){
+
+
+
+    }
+    public static void main(String [] args){
+
+	byte date= 25;
+	String name= "Gerardo Omar";
+	char gender= 'M'
+	
+	    Humano yo = new Humano(date, name, gender);
+	
+
+    }
+    
+
+
+}

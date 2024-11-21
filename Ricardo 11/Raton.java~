@@ -1,0 +1,41 @@
+import java.util.Random;
+
+
+public class Raton implements Depredador, Presa {
+
+
+    public void cazar(){
+
+        Random rd = new Random(); 
+
+        int azar = rd.nextInt(11); 
+
+        System.out.println("El ratón está intentando comerse a un instecto pequeñito...");
+
+if( azar < 5){
+
+System.out.println("No lo logro, el ratón no pudo comerse al pequeño insecto y ahora no tendrá que comer nada en el día :(");
+
+
+
+
+} else{
+
+comer();
+
+}
+
+    }
+
+
+
+    public void comer(){
+
+System.out.println("El ratón está felizmente comiendo su insecto :)");
+
+    }
+
+
+
+}
+

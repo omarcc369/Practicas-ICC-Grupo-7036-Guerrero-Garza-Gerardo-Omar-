@@ -1,0 +1,33 @@
+
+
+public class Ecosistema{
+
+//Aquí va la implementación de mi programa 
+
+}
+
+
+interface Depredador{
+
+//Aquí va la plantillita 
+
+public void cazar(); 
+
+
+}
+
+
+interface Presa{
+
+//Aquí va la plantilla
+
+public void comer();
+
+
+
+}
+
+
+
+
+

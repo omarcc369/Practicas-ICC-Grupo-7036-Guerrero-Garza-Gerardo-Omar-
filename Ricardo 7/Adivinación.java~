@@ -1,0 +1,77 @@
+import java.util.Scanner;
+import java.util.Random; 
+
+public class Adivinación{
+
+    public static void main (String [] args){
+
+	Scanner sc = new Scanner (System.in);
+	Random rd = new Random();
+	
+	System.out.println("Bienvenido al Tarot");
+System.out.println("Las cartas se están barajeando...");
+
+
+String [] cartas = {"El Loco: Nuevos comienzos, aventura, libertad. Augura un salto de fe y nuevas oportunidades. ",
+		    
+		    "El Mago: Habilidad, destreza, poder. Indica el uso de habilidades y recursos para alcanzar metas.",
+		    
+		    "La Sacerdotisa: Intuición, misterio, conocimiento oculto. Sugiere confiar en la intuición y el conocimiento interno.",
+		    
+		    "La Emperatriz: Fertilidad, abundancia, naturaleza. Predice crecimiento, creatividad y prosperidad.",
+		    
+		    "El Emperador: Autoridad, estructura, control. Señala estabilidad y liderazgo.",
+		    
+		    "El Hierofante: Tradición, espiritualidad, enseñanza. Indica la búsqueda de guía espiritual o educación.",
+		    
+		    "Los Enamorados: Amor, relaciones, decisiones. Augura elecciones importantes en relaciones y armonía.",
+		    
+		    "El Carro: Victoria, determinación, control. Predice éxito a través de la fuerza de voluntad.",
+		    
+		    "la Justicia: Equilibrio, justicia, verdad. Señala decisiones justas y consecuencias equilibradas. ",
+		    
+		    "El Ermitaño: Introspección, soledad, sabiduría. Sugiere un período de reflexión y búsqueda interna.",
+		    
+		    "La Rueda de la fortuna: Cambio, destino, ciclos. Indica cambios inevitables y giros del destino.",
+		    
+		    "La Fuerza: Coraje, paciencia, control interno. Predice superar desafíos con fuerza interna.",
+		    
+		    "El Colgado: Sacrificio, perspectiva, pausa. Señala la necesidad de ver las cosas desde otro ángulo. ",
+		    
+		    "La Muerte: Transformación, final, renacimiento. Indica el fin de una etapa y el comienzo de otra.",
+		    
+		    "La Templanza: Moderación, equilibrio, armonía. Sugiere la necesidad de equilibrio y paciencia. ",
+		    
+		    "El Diablo: Tentación, materialismo, ataduras. Predice enfrentarse a adicciones o comportamientos negativos.",
+		    
+		    "La Torre: Ruina, cambio repentino, revelación. Indica cambios drásticos y revelaciones inesperadas.",
+		    
+		    "La Estrella: Esperanza, inspiración, serenidad. Augura un período de paz y renovación.",
+		    
+		    "La luna: Ilusión, intuición, confusión. Señala la necesidad de confiar en la intuición y enfrentar miedos. ",
+		    
+		    "El Sol: Éxito, vitalidad, alegría. Predice felicidad, éxito y claridad. ",
+		    
+		    "El Juicio: Renacimiento, evaluación, despertar. Indica un llamado a la acción y autoevaluación. ",
+		    
+		    "El Mundo: Finalización, éxito, realización. Señala la culminación de un ciclo y la realización de metas. " }; //Son 22 cartas principales de los arcanos mayores
+
+
+System.out.println("Para elegir su carta al azar presione enter");
+
+sc.nextLine();
+
+int azar = rd.nextInt(21); 
+
+String azarCarta = cartas[azar];
+
+System.out.println("Tu suerte es: " + azarCarta );
+	
+
+
+    }//Fin de método main 
+
+
+
+
+}//Fin de clase

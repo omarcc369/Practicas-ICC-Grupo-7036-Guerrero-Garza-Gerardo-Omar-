@@ -1,0 +1,19 @@
+public class Rana  implements Depredador, Presa{
+    
+
+public void cazar(){
+
+
+
+}
+
+
+public void comer(){
+
+
+
+
+    
+}
+
+}

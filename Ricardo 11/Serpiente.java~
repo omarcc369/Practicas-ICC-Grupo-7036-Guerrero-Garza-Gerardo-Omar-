@@ -1,0 +1,39 @@
+import java.util.Random;
+
+public class Serpiente implements Depredador, Presa{
+
+    public void cazar(){
+
+
+        System.out.println("La serpiente vio a una rana y está planenado comersela...");
+
+
+Random rd = new Random(); 
+
+int azar = rd.nextInt(11);
+
+if(azar<5){
+
+System.out.println("A la serpiente se le escapo la rana y por esto no puedo comerserla");
+
+
+
+} else{
+
+comer(); 
+
+}
+
+
+    }
+
+    public void comer(){
+
+        System.out.println("La serpiente pudo comerse a una rica rana, esperamos que no sea de las venenosas");
+
+
+
+    }
+    
+
+}

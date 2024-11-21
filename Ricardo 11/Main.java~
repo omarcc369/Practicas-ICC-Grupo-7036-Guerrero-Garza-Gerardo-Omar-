@@ -1,0 +1,28 @@
+/**
+ * Clase principal que ejecuta el programa del ecosistema.
+ * Crea instancias de diferentes animales y simula sus acciones de caza y alimentación.
+ * 
+ * @author Gerardo Omar
+ * @version 1.0
+ */
+public class Main {
+
+    /**
+     * Método principal que inicia el programa.
+     * Crea instancias de Insecto, Raton, Rana, Serpiente y Aguila y simula sus acciones.
+     * 
+     * @param args Argumentos de línea de comandos (no utilizados).
+     */
+    public static void main(String[] args) {
+        Insecto ins = new Insecto(); 
+        ins.comer();
+        Raton rt = new Raton(); 
+        rt.cazar();
+        Rana rn = new Rana(); 
+        rn.cazar();
+        Serpiente sp = new Serpiente(); 
+        sp.cazar();
+        Aguila ala = new Aguila();
+        ala.cazar();
+    }
+}

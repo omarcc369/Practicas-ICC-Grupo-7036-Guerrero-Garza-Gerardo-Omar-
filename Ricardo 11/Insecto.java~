@@ -1,0 +1,27 @@
+import java.util.Random;
+
+public class Insecto implements Presa{
+    
+
+public void comer(){
+
+    Random rd = new Random(); 
+
+    int azar = rd.nextInt(11);
+
+    if(azar< 5){
+
+System.out.println("El insecto no pudo chupar sangre de ninguna persona y está en riesgo de morir de hambre.");
+
+    } else{
+
+System.out.println("El insecto pudo chupar sangre de una persona y ahora está muy satisfecho");
+
+    }
+
+
+
+
+}
+
+}

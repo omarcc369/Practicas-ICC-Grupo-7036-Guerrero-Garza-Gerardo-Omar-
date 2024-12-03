@@ -1,0 +1,48 @@
+/usr/lib/jvm/jre-21-openjdk/bin/javadoc
+@options
+@packages
+-classpath
+'/home/gerardoomar369/.m2/repository/com/drewnoakes/metadata-extractor/2.18.0/metadata-extractor-2.18.0.jar:/home/gerardoomar369/.m2/repository/com/adobe/xmp/xmpcore/6.1.11/xmpcore-6.1.11.jar'
+-encoding
+'UTF-8'
+-protected
+-sourcepath
+'/home/gerardoomar369/Imágenes/mi-proyecto/src/main/java'
+-author
+-bottom
+'Copyright &#169; 2024. All rights reserved.'
+-charset
+'UTF-8'
+-d
+'/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs'
+-docencoding
+'UTF-8'
+-doctitle
+'ExtractorMetadatos 1.0-SNAPSHOT API'
+-use
+-version
+-windowtitle
+'ExtractorMetadatos 1.0-SNAPSHOT API'
+com.ejemplo
+/home/gerardoomar369/.m2/repository/com/drewnoakes/metadata-extractor/2.18.0/metadata-extractor-2.18.0.jar = 1651750736000
+/home/gerardoomar369/.m2/repository/com/adobe/xmp/xmpcore/6.1.11/xmpcore-6.1.11.jar = 1605616782000
+/home/gerardoomar369/Imágenes/mi-proyecto/src/main/java = 1733171406483
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/element-list = 1733247941598
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/overview-tree.html = 1733247941634
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/allclasses-index.html = 1733247941649
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/allpackages-index.html = 1733247941653
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/module-search-index.js = 1733247941653
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/package-search-index.js = 1733247941654
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/type-search-index.js = 1733247941654
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/member-search-index.js = 1733247941655
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/tag-search-index.js = 1733247941655
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/index-all.html = 1733247941664
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/search.html = 1733247941667
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/index.html = 1733247941668
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/help-doc.html = 1733247941675
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/stylesheet.css = 1733247941678
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/script.js = 1733247941679
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/copy.svg = 1733247941679
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/link.svg = 1733247941680
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/search.js = 1733247941683
+/home/gerardoomar369/Imágenes/mi-proyecto/target/site/apidocs/search-page.js = 1733247941684

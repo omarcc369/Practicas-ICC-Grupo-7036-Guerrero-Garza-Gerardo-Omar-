@@ -1,0 +1,190 @@
+package com.ejemplo;
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
+import com.drew.metadata.exif.GpsDirectory;
+
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URI;
+import java.util.Scanner;
+
+/**
+ * MetadataExtractor es una herramienta para extraer, visualizar y modificar los metadatos de imágenes.
+ * Los metadatos extraídos incluyen información EXIF y, si está disponible, la ubicación GPS.
+ * Los metadatos también pueden ser guardados en un archivo de texto.
+ * 
+ * Autores: Gerardo Omar, Cristopher Carrada
+ * Versión: 1.0
+ */
+public class MetadataExtractor {
+
+    /**
+     * El método principal que ejecuta el extractor de metadatos. 
+     * Muestra un menú de opciones para el usuario y ejecuta la acción seleccionada.
+     * 
+     * @param args Argumentos de línea de comandos (no se usan en este caso).
+     */
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Mostrar bienvenida
+        System.out.println("------BIENVENIDO AL EXTRACTOR DE DATOS----------");
+
+        // Solicitar la ruta de la imagen
+        String filePath = solicitarRutaDeImagen(scanner);
+        if (filePath == null) {
+            System.out.println("Error: Ruta de archivo no válida.");
+            return;
+        }
+
+        File imageFile = new File(filePath);
+
+        // Verificar que el archivo exista y tenga un formato aceptado
+        if (!imageFile.exists()) {
+            System.out.println("Error: El archivo no existe.");
+            return;
+        }
+
+        if (!filePath.endsWith(".jpg") && !filePath.endsWith(".jpeg") && !filePath.endsWith(".png")) {
+            System.out.println("Error: Formato no compatible. Solo se aceptan imágenes JPG, JPEG y PNG.");
+            return;
+        }
+
+        try {
+            // Leer los metadatos de la imagen
+            Metadata metadata = ImageMetadataReader.readMetadata(imageFile);
+
+            // Mostrar opciones de menú
+            mostrarMenu(scanner);
+
+            int opcion = obtenerOpcion(scanner);
+            if (opcion == 1) {
+                // Extraer los metadatos
+                extraerMetadatos(metadata);
+            } else if (opcion == 2) {
+                // Escribir los metadatos en un archivo
+                String nombreArchivo = solicitarNombreArchivo(scanner);
+                escribirMetadatosEnArchivo(metadata, nombreArchivo);
+            } else {
+                System.out.println("Opción no válida.");
+            }
+
+        } catch (IOException | RuntimeException e) {
+            System.out.println("Error al procesar la imagen: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Solicita la ruta del archivo de imagen al usuario.
+     * 
+     * @param scanner El scanner para leer la entrada del usuario.
+     * @return La ruta del archivo o null si la entrada no es válida.
+     */
+    private static String solicitarRutaDeImagen(Scanner scanner) {
+        System.out.println("Ingrese la ruta de la imagen (JPG, JPEG, PNG): ");
+        String filePath = scanner.nextLine();
+
+        // Validar que la ruta no esté vacía
+        if (filePath.isEmpty()) {
+            return null;
+        }
+
+        return filePath;
+    }
+
+    /**
+     * Muestra el menú de opciones al usuario.
+     * 
+     * @param scanner El scanner para leer la entrada del usuario.
+     */
+    private static void mostrarMenu(Scanner scanner) {
+        System.out.println("¿Qué acción desea realizar?");
+        System.out.println("1. Extraer los metadatos.");
+        System.out.println("2. Escribir los metadatos en un archivo.");
+    }
+
+    /**
+     * Obtiene la opción seleccionada por el usuario.
+     * 
+     * @param scanner El scanner para leer la entrada del usuario.
+     * @return La opción seleccionada.
+     */
+    private static int obtenerOpcion(Scanner scanner) {
+        int opcion = -1;
+        try {
+            opcion = scanner.nextInt();
+        } catch (Exception e) {
+            scanner.nextLine(); // Limpiar buffer de entrada
+            System.out.println("Error: Entrada no válida.");
+        }
+        return opcion;
+    }
+
+    /**
+     * Extrae y muestra los metadatos de la imagen.
+     * 
+     * @param metadata Los metadatos de la imagen.
+     */
+    private static void extraerMetadatos(Metadata metadata) {
+        System.out.println("Metadatos encontrados:");
+        for (Directory directory : metadata.getDirectories()) {
+            for (Tag tag : directory.getTags()) {
+                System.out.format("[%s] - %s = %s%n", directory.getName(), tag.getTagName(), tag.getDescription());
+            }
+        }
+
+        // Obtener la ubicación GPS (si está disponible)
+        GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
+        if (gpsDirectory != null && gpsDirectory.getGeoLocation() != null) {
+            double latitude = gpsDirectory.getGeoLocation().getLatitude();
+            double longitude = gpsDirectory.getGeoLocation().getLongitude();
+            System.out.println("Ubicación GPS encontrada:");
+            System.out.println("Latitud: " + latitude);
+            System.out.println("Longitud: " + longitude);
+
+            // Abrir la ubicación en Google Maps
+            try {
+                String url = "https://www.google.com/maps?q=" + latitude + "," + longitude;
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (Exception e) {
+                System.out.println("Error al abrir Google Maps: " + e.getMessage());
+            }
+        } else {
+            System.out.println("No se encontraron datos de GPS en la imagen.");
+        }
+    }
+
+    /**
+     * Solicita al usuario el nombre del archivo donde se escribirán los metadatos.
+     * 
+     * @param scanner El scanner para leer la entrada del usuario.
+     * @return El nombre del archivo proporcionado por el usuario.
+     */
+    private static String solicitarNombreArchivo(Scanner scanner) {
+        System.out.println("Ingrese el nombre del archivo donde se guardarán los metadatos (por ejemplo, metadatos.txt): ");
+        return scanner.nextLine();
+    }
+
+    /**
+     * Escribe los metadatos de la imagen en un archivo de texto.
+     * 
+     * @param metadata Los metadatos de la imagen.
+     * @param nombreArchivo El nombre del archivo donde se escribirán los metadatos.
+     */
+    private static void escribirMetadatosEnArchivo(Metadata metadata, String nombreArchivo) {
+        try (FileWriter writer = new FileWriter(nombreArchivo)) {
+            for (Directory directory : metadata.getDirectories()) {
+                for (Tag tag : directory.getTags()) {
+                    writer.write(String.format("[%s] - %s = %s%n", directory.getName(), tag.getTagName(), tag.getDescription()));
+                }
+            }
+            System.out.println("Metadatos escritos en el archivo: " + nombreArchivo);
+        } catch (IOException e) {
+            System.out.println("Error al escribir los metadatos en el archivo: " + e.getMessage());
+        }
+    }
+}

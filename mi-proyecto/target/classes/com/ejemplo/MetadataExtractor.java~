@@ -1,0 +1,101 @@
+package com.ejemplo;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Scanner;
+
+import com.drew.imaging.ImageMetadataReader;
+import com.drew.metadata.Directory;
+import com.drew.metadata.Metadata;
+import com.drew.metadata.Tag;
+import com.drew.metadata.exif.GpsDirectory;
+
+public class MetadataExtractor {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("------BIENVENIDO AL EXTRACTOR DE DATOS----------");
+
+        System.out.println("Ingrese la ruta de la imagen (JPG, JPEG, PNG): ");
+        String filePath = scanner.nextLine();
+
+        File imageFile = new File(filePath);
+
+        // Verificar que el archivo exista y tenga un formato aceptado
+        if (!imageFile.exists() || (!filePath.endsWith(".jpg") && !filePath.endsWith(".jpeg") && !filePath.endsWith(".png"))) {
+            System.out.println("Archivo no encontrado o formato no compatible.");
+            return;
+        }
+
+        System.out.println("¿Qué acción desea realizar?");
+        System.out.println("1. Extraer los metadatos.");
+        System.out.println("2. Escribir los metadatos en un archivo.");
+        int option = scanner.nextInt();
+        scanner.nextLine();  // Consumir la nueva línea restante
+
+        try {
+            // Leer los metadatos de la imagen
+            Metadata metadata = ImageMetadataReader.readMetadata(imageFile);
+
+            if (option == 1) {
+                // Extraer los metadatos y mostrarlos en la consola
+                System.out.println("Metadatos encontrados:");
+                for (Directory directory : metadata.getDirectories()) {
+                    for (Tag tag : directory.getTags()) {
+                        System.out.format("[%s] - %s = %s%n", directory.getName(), tag.getTagName(), tag.getDescription());
+                    }
+                }
+
+                // Obtener la ubicación GPS (si está disponible)
+                GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
+                if (gpsDirectory != null && gpsDirectory.getGeoLocation() != null) {
+                    double latitude = gpsDirectory.getGeoLocation().getLatitude();
+                    double longitude = gpsDirectory.getGeoLocation().getLongitude();
+                    System.out.println("Ubicación GPS encontrada:");
+                    System.out.println("Latitud: " + latitude);
+                    System.out.println("Longitud: " + longitude);
+
+                    // Abrir la ubicación en un navegador
+                    String url = "https://www.google.com/maps?q=" + latitude + "," + longitude;
+                    if (Desktop.isDesktopSupported()) {
+                        Desktop.getDesktop().browse(java.net.URI.create(url));
+                    }
+                } else {
+                    System.out.println("No se encontraron datos GPS en la imagen.");
+                }
+            } else if (option == 2) {
+                // Escribir los metadatos en un archivo
+                System.out.println("Ingrese el nombre del archivo para guardar los metadatos (por ejemplo, metadatos.txt): ");
+                String outputFile = scanner.nextLine();
+                try (FileWriter writer = new FileWriter(outputFile)) {
+                    for (Directory directory : metadata.getDirectories()) {
+                        for (Tag tag : directory.getTags()) {
+                            writer.write(String.format("[%s] - %s = %s%n", directory.getName(), tag.getTagName(), tag.getDescription()));
+                        }
+                    }
+
+                    // Obtener la ubicación GPS (si está disponible) y escribirla
+                    GpsDirectory gpsDirectory = metadata.getFirstDirectoryOfType(GpsDirectory.class);
+                    if (gpsDirectory != null && gpsDirectory.getGeoLocation() != null) {
+                        double latitude = gpsDirectory.getGeoLocation().getLatitude();
+                        double longitude = gpsDirectory.getGeoLocation().getLongitude();
+                        writer.write("Ubicación GPS encontrada:\n");
+                        writer.write("Latitud: " + latitude + "\n");
+                        writer.write("Longitud: " + longitude + "\n");
+                    } else {
+                        writer.write("No se encontraron datos GPS en la imagen.\n");
+                    }
+                    System.out.println("Metadatos guardados en " + outputFile);
+                } catch (IOException e) {
+                    System.out.println("Error al guardar los metadatos: " + e.getMessage());
+                }
+            } else {
+                System.out.println("Opción no válida.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error al leer los metadatos de la imagen: " + e.getMessage());
+        }
+    }
+}
